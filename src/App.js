@@ -15,15 +15,17 @@ import CheckOutPage from "./components/CheckOutPage";
 
 
 function App() {
-  
-    const [token, setToken] = useState("");
-    const [userName, setUserName] = useState("");
+
+      const [user, setUser] = useState({
+        name: "",
+        token: ""   
+       })
     
     return (
       <BrowserRouter>
-        <UserContext.Provider value = {{token, setToken, userName, setUserName}}>
+        <UserContext.Provider value={{ user, setUser }}>
           <Routes>
-              <Route path="/" element={token === "" ? <InitialPage /> : <ProductsPage />} />
+              <Route path="/" element={user.token === "" ? <InitialPage /> : <ProductsPage />} />
               <Route path="/signup" element={<SignUpPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/shoppingcart" element={<ShoppingCartPage />} />
