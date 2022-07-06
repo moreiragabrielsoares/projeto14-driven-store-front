@@ -18,8 +18,9 @@ function App() {
 
       const [user, setUser] = useState({
         name: "",
-        token: ""   
-       })
+        token: "",
+        qtyCartItems: 0,   
+      })
     
     return (
       <BrowserRouter>

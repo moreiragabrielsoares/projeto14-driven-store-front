@@ -1,8 +1,7 @@
-import { useState, useContext , useEffect } from 'react';
+import { useContext } from 'react';
 import UserContext from '../contexts/UserContext'
 import { Link , useNavigate } from "react-router-dom";
 import styled from 'styled-components';
-import axios from 'axios';
 
 
 
@@ -10,15 +9,14 @@ import axios from 'axios';
 
 function TopBar () {
 
-    const userName = "Fulano"; //substituir para os estados do contexto
-    const token = ""; //substituir para os estados do contexto
-    const qtyCartItems = 10; //substituir para os estados do contexto
+    const {user, setUser} = useContext(UserContext);
+    
     const navigate = useNavigate();
 
 
     function logOut () {
         
-        //zerar o estado do token e do userName
+        setUser({name: "", token:""})
 
         navigate("/");
     }
@@ -26,7 +24,7 @@ function TopBar () {
 
     function verifyLogin () {
 
-        if (token === "") {
+        if (user.token === "") {
             
             return  <RightContainer>
                         <UserContainer>
@@ -50,7 +48,7 @@ function TopBar () {
             return  <RightContainer>
                         <UserContainer>  
                             <ion-icon name="person-outline"></ion-icon>
-                            <span>{`Olá, ${userName}!`}</span>
+                            <span>{`Olá, ${user.name}!`}</span>
                             <div onClick={() => logOut()}><ion-icon name="exit-outline"></ion-icon></div>
                         </UserContainer>
                         
@@ -60,7 +58,7 @@ function TopBar () {
                             </Link>    
     
                             <Link to="/shoppingcart" style={{textDecoration: 'none'}}>
-                                <div>{qtyCartItems}</div>
+                                <div>{user.qtyCartItems}</div>
                             </Link>
                         </ShoppingCartContainer>
                     </RightContainer>
