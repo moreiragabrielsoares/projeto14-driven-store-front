@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import axios from 'axios';
 import { ThreeDots } from  'react-loader-spinner';
 
+import TopBar from "./TopBar";
+
 
 
 
@@ -14,8 +16,14 @@ function InitialPage () {
 
 
     return (
+        
+        <>
 
-        <div>InitialPage</div>
+            <TopBar />
+            <div>InitialPage</div>
+        
+        </>
+        
 
     );
 
