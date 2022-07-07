@@ -1,31 +1,95 @@
-import { useState, useContext , useEffect } from 'react';
-import UserContext from '../contexts/UserContext'
-import { Link , useNavigate } from "react-router-dom";
+import { useState , useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import styled from 'styled-components';
 import axios from 'axios';
-import { ThreeDots } from  'react-loader-spinner';
 
 import TopBar from "./TopBar";
-
-
 
 
 function InitialPage () {
 
     const navigate = useNavigate();
 
-
     function logIn () {
         navigate("/login");
     }
 
+    const [productsList, setProductsList] = useState([]);
+
+    useEffect(() => {
+
+		const promisse = axios.get("http://localhost:5000/products");
+
+		promisse.then(success);
+
+        function success (res) {
+            setProductsList(res.data);
+        }
+        
+        promisse.catch((erro) => {alert(erro.response.data.message)});
+
+	}, []);
+
+
+
+    function verifyCaderno (product) {
+
+        if (product.category === "caderno") {
+
+            return  <ProductContainer>
+
+                        <ProductImg>
+                            <img src={product.img}/>
+                        </ProductImg>
+                        <ProductName>{product.name}</ProductName>
+                        <ProductPrice>{`R$${product.price}`}</ProductPrice>
+                        <AddToCartButton onClick={() => logIn()}>Adicionar ao Carrinho</AddToCartButton>
+
+                    </ProductContainer>
+        }
+    }
+
+
+    function verifyCaneca (product) {
+
+        if (product.category === "caneca") {
+
+            return  <ProductContainer>
+
+                        <ProductImg>
+                            <img src={product.img}/>
+                        </ProductImg>
+                        <ProductName>{product.name}</ProductName>
+                        <ProductPrice>{`R$${product.price}`}</ProductPrice>
+                        <AddToCartButton onClick={() => logIn()}>Adicionar ao Carrinho</AddToCartButton>
+
+                    </ProductContainer>
+        }
+    }
+
+    function verifyMochila (product) {
+
+        if (product.category === "mochila") {
+
+            return  <ProductContainer>
+
+                        <ProductImg>
+                            <img src={product.img}/>
+                        </ProductImg>
+                        <ProductName>{product.name}</ProductName>
+                        <ProductPrice>{`R$${product.price}`}</ProductPrice>
+                        <AddToCartButton onClick={() => logIn()}>Adicionar ao Carrinho</AddToCartButton>
+
+                    </ProductContainer>
+        }
+    }
 
 
     return (
         
         <>
-
             <TopBar />
+
             <BodyContainer>
 
                 <LineContainer>
@@ -34,50 +98,7 @@ function InitialPage () {
 
                     <ProductsContainer>
 
-                        <ProductContainer>
-
-                            <ProductImg>
-                                <img src="https://images.tcdn.com.br/img/img_prod/997151/caderno_universitario_capa_dura_naruto_1_materia_sd_4925_1_0976068f9c099ff2ada73892b3e07c39.jpg"/>
-                            </ProductImg>
-                            <ProductName>Caderno Narutin</ProductName>
-                            <ProductPrice>R$100,00</ProductPrice>
-                            <AddToCartButton onClick={() => logIn()}>Adicionar ao Carrinho</AddToCartButton>
-
-                        </ProductContainer>
-
-                        <ProductContainer>
-
-                            <ProductImg>
-                                <img src="https://images-americanas.b2w.io/produtos/4326277747/imagens/caderno-homem-aranha-1-materia-universitario-espiral-80-fls-tilibra/4326277747_1_large.jpg"/>
-                            </ProductImg>
-                            <ProductName>NAME</ProductName>
-                            <ProductPrice>PRICE</ProductPrice>
-                            <AddToCartButton>Adicionar ao Carrinho</AddToCartButton>
-
-                        </ProductContainer>
-
-                        <ProductContainer>
-
-                            <ProductImg>
-                                <img src="https://static.ocaderninho.com.br/produto/multifotos/hd/20210211171654_1769998231_DZ.jpg"/>
-                            </ProductImg>
-                            <ProductName>NAME</ProductName>
-                            <ProductPrice>PRICE</ProductPrice>
-                            <AddToCartButton>Adicionar ao Carrinho</AddToCartButton>
-
-                        </ProductContainer>
-
-                        <ProductContainer>
-
-                            <ProductImg>
-                                <img src="https://images.tcdn.com.br/img/img_prod/997151/caderno_universitario_capa_dura_naruto_1_materia_sd_4925_1_0976068f9c099ff2ada73892b3e07c39.jpg"/>
-                            </ProductImg>
-                            <ProductName>Caderno Narutin</ProductName>
-                            <ProductPrice>R$100,00</ProductPrice>
-                            <AddToCartButton>Adicionar ao Carrinho</AddToCartButton>
-
-                        </ProductContainer>
-
+                        {productsList.map((product) => verifyCaderno(product))}
 
                     </ProductsContainer>
 
@@ -89,49 +110,7 @@ function InitialPage () {
 
                     <ProductsContainer>
 
-                        <ProductContainer>
-
-                            <ProductImg>
-                                <img src="https://images.tcdn.com.br/img/img_prod/997151/caderno_universitario_capa_dura_naruto_1_materia_sd_4925_1_0976068f9c099ff2ada73892b3e07c39.jpg"/>
-                            </ProductImg>
-                            <ProductName>Caderno Narutin</ProductName>
-                            <ProductPrice>R$100,00</ProductPrice>
-                            <AddToCartButton onClick={() => logIn()}>Adicionar ao Carrinho</AddToCartButton>
-
-                        </ProductContainer>
-
-                        <ProductContainer>
-
-                            <ProductImg>
-                                <img src="https://static.ocaderninho.com.br/produto/multifotos/hd/20210211171654_1769998231_DZ.jpg"/>
-                            </ProductImg>
-                            <ProductName>NAME</ProductName>
-                            <ProductPrice>PRICE</ProductPrice>
-                            <AddToCartButton>Adicionar ao Carrinho</AddToCartButton>
-
-                        </ProductContainer>
-
-                        <ProductContainer>
-
-                            <ProductImg>
-                                <img src="https://static.ocaderninho.com.br/produto/multifotos/hd/20210211171654_1769998231_DZ.jpg"/>
-                            </ProductImg>
-                            <ProductName>NAME</ProductName>
-                            <ProductPrice>PRICE</ProductPrice>
-                            <AddToCartButton>Adicionar ao Carrinho</AddToCartButton>
-
-                        </ProductContainer>
-
-                        <ProductContainer>
-
-                            <ProductImg>
-                                <img src="https://images.tcdn.com.br/img/img_prod/997151/caderno_universitario_capa_dura_naruto_1_materia_sd_4925_1_0976068f9c099ff2ada73892b3e07c39.jpg"/>
-                            </ProductImg>
-                            <ProductName>Caderno Narutin</ProductName>
-                            <ProductPrice>R$100,00</ProductPrice>
-                            <AddToCartButton>Adicionar ao Carrinho</AddToCartButton>
-
-                        </ProductContainer>
+                        {productsList.map((product) => verifyCaneca(product))}
 
                     </ProductsContainer>
 
@@ -139,53 +118,11 @@ function InitialPage () {
 
                 <LineContainer>
 
-                    <LineTitle>CADERNOS</LineTitle>
+                    <LineTitle>MOCHILAS</LineTitle>
 
                     <ProductsContainer>
 
-                        <ProductContainer>
-
-                            <ProductImg>
-                                <img src="https://images.tcdn.com.br/img/img_prod/997151/caderno_universitario_capa_dura_naruto_1_materia_sd_4925_1_0976068f9c099ff2ada73892b3e07c39.jpg"/>
-                            </ProductImg>
-                            <ProductName>Caderno Narutin</ProductName>
-                            <ProductPrice>R$100,00</ProductPrice>
-                            <AddToCartButton onClick={() => logIn()}>Adicionar ao Carrinho</AddToCartButton>
-
-                        </ProductContainer>
-
-                        <ProductContainer>
-
-                            <ProductImg>
-                                <img src="https://static.ocaderninho.com.br/produto/multifotos/hd/20210211171654_1769998231_DZ.jpg"/>
-                            </ProductImg>
-                            <ProductName>NAME</ProductName>
-                            <ProductPrice>PRICE</ProductPrice>
-                            <AddToCartButton>Adicionar ao Carrinho</AddToCartButton>
-
-                        </ProductContainer>
-
-                        <ProductContainer>
-
-                            <ProductImg>
-                                <img src="https://static.ocaderninho.com.br/produto/multifotos/hd/20210211171654_1769998231_DZ.jpg"/>
-                            </ProductImg>
-                            <ProductName>NAME</ProductName>
-                            <ProductPrice>PRICE</ProductPrice>
-                            <AddToCartButton>Adicionar ao Carrinho</AddToCartButton>
-
-                        </ProductContainer>
-
-                        <ProductContainer>
-
-                            <ProductImg>
-                                <img src="https://images.tcdn.com.br/img/img_prod/997151/caderno_universitario_capa_dura_naruto_1_materia_sd_4925_1_0976068f9c099ff2ada73892b3e07c39.jpg"/>
-                            </ProductImg>
-                            <ProductName>Caderno Narutin</ProductName>
-                            <ProductPrice>R$100,00</ProductPrice>
-                            <AddToCartButton>Adicionar ao Carrinho</AddToCartButton>
-
-                        </ProductContainer>
+                        {productsList.map((product) => verifyMochila(product))}
 
                     </ProductsContainer>
 
@@ -195,7 +132,6 @@ function InitialPage () {
         
         </>
         
-
     );
 
 }
@@ -242,7 +178,6 @@ const ProductContainer = styled.div`
     border-radius: 5px;
    
     :hover {
-        cursor: pointer;
         border-color: lightgray;
     }
 
@@ -294,4 +229,8 @@ const AddToCartButton = styled.div`
 
     width: 70%;
     height: 40px;
+
+    :hover {
+        cursor: pointer;
+    }
 `;
