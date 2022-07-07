@@ -5,35 +5,79 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import UserContext from "../contexts/UserContext";
 import { useContext } from "react";
-import camisa from "../assets/camisa.jpeg";
+import lixeira from "../assets/lixeira.png";
+import TopBar from "./TopBar";
+
+function RenderShopping({name, price, image}) {
+   function deleteChoice() {
+       console.log("Vamos deletar a função");
+       //Aqui irei deletar um documentar e renderizar novamente a página
+   }
+    return (
+        <Contents> 
+            <Items>
+                <img src={image} />
+                <h3> {name}</h3>
+                <h4> {price}</h4>
+            </Items>
+            <img onClick={deleteChoice} src={lixeira} />
+        </Contents>
+    )
+}
+
 
 export default function ShoppingCartPage() {
     //para fazer esse get só preciso do token do usuário pra ver se ele está logado
-    //Preciso importar o topo da página;
-
+    // quando fizer o get em shoppingcart eu vou precisar do userId. Esse userId vai ser usado na function ordersMade
     const { user, setUser } = useContext(UserContext);
-    const [products, setProducts] = useState([]);
+    //const [shopping, setShopping] = useState([]);
+    const [balance, setBalance] = useState(0);
+    const shopping = [{
+        name: "Caderno Goku",
+        price: 55.00,
+        img: "https://sdinovacoesgraficas.com.br/wp-content/uploads/2020/07/dragon-ball-2021-universit%C3%A1rio-capa-4.jpg"
+      }, {
+        name: "Caderno superman",
+        price: 45.00,
+        img: "https://sdinovacoesgraficas.com.br/wp-content/uploads/2020/07/dragon-ball-2021-universit%C3%A1rio-capa-4.jpg"
+      },
+      {
+        name: "Caderno vegeta",
+        price: 50.00,
+        img: "https://sdinovacoesgraficas.com.br/wp-content/uploads/2020/07/dragon-ball-2021-universit%C3%A1rio-capa-4.jpg"
+      }]
+
    /* useEffect(() => {
         const config = {
             headers: {
                 Authorization: `Bearer ${user.token}`
             }
         }
-        const promise = axios.get("https://projeto14-driven-store-back.herokuapp.com/cashFlux", config)
+        const promise = axios.get("http://projeto14-driven-store-back.herokuapp.com/shoppingcart")
         promise
         .then(res =>{
             console.log(res.data);
-            setProducts(res.data)
-            console.log(products)
+            setShopping(res.data);
+            setQuantity(res.data.length)
+            console.log(shopping)
         })
         .catch(err => {
             console.log(err);
             console.log("deu ruim")
         })
     }, []) */
+    let total = 0;
+    useEffect(() => {
+        for(let i = 0; i < shopping.length; i++) {
+            let valor = shopping[i].price
+                total += valor
+        }
+        setBalance(total) 
+    })    
 
     return (
         <ShoppingBody>
+            <TopBar />
             <Header>
                 <h2> Carrinho</h2>
                 <h4> Clique em checkout para seguir adiante com a compra</h4>
@@ -44,26 +88,17 @@ export default function ShoppingCartPage() {
                     <h3> Nome</h3>
                     <h3> Valor</h3>
                 </Title>
-                <Contents> 
-                    <img src={camisa} />
-                    <h3> Camisa Unidos da Tijuca</h3>
-                    <h4> 60 reais</h4>
-                </Contents>
-                <Contents>
-                    <img src={camisa} />
-                    <h3> Camisa Unidos da Tijuca</h3>
-                    <h4> 60 reais</h4>
-                </Contents>
-                <Contents>
-                    <img src={camisa} />
-                    <h3> Camisa </h3>
-                    <h4> 60 reais</h4>
-                </Contents>
+                
+                {shopping.map( (data) => <RenderShopping name={data.name} price={data.price} image={data.img} />)}
+
                 <TotalPrice>
                     <h3> Total</h3>
-                    <h4> 180 Reais</h4>
+                    <h4> {balance}</h4>
                 </TotalPrice>
-                <button> Checkout</button>
+                <Link style={{ textDecoration: 'none' }} to={`/checkout`} >
+                    <button> Checkout</button>
+               </Link>
+                
             
             
         </ShoppingBody>
@@ -96,6 +131,7 @@ const ShoppingBody = styled.div`
 const Header = styled.div`
         display: flex;
         justify-content: center;
+        margin-top:100px;
     h2 {
         font-family: 'Righteous';
         font-style: normal;
@@ -131,6 +167,14 @@ const Title = styled.div`
         letter-spacing: -0.012em;
         color: white; 
         justify-content: space-around;
+    h3:last-child{
+        margin-right:60px;
+    }
+`
+const Items = styled.div`
+        display: flex;
+        width: 90%;
+        justify-content:space-between;
 `
 const Contents = styled.div`
         display: flex;
@@ -142,6 +186,14 @@ const Contents = styled.div`
     img {
         width: 200px;
         height: 200px;
+      
+        margin-left:100px;
+    }
+    img:last-child{
+        margin-top:80px;
+        width: 40px;
+        height: 40px;
+        
     }
     h3{
         display: flex;
@@ -155,6 +207,7 @@ const Contents = styled.div`
         color: gray;    
         display: flex;
         width: 200px;
+        margin-left:100px;
     }
     h4 {
         display: flex;
@@ -168,6 +221,7 @@ const Contents = styled.div`
         color: gray;    
         display: flex;
         width: 200px;
+        margin-left:50px;
     }
 `
 const TotalPrice = styled.div`

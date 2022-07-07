@@ -12,7 +12,7 @@ export default function SignUpPage() {
     const navigate = useNavigate(); 
 
     function erro() {
-        alert("As senhas não são iguais. Insira novamente")
+        alert("Você inseriu dados inválidos. ")
     }
     function cadastrar () {
         const body = {
@@ -23,7 +23,7 @@ export default function SignUpPage() {
         }
         console.log(body)
         console.log("cadastramos")
-        /*const promise = axios.post("https://projeto14-driven-store-back.herokuapp.com/signup", body)
+        const promise = axios.post("https://projeto14-driven-store-back.herokuapp.com/signup", body)
         promise
         .then(res => {
             console.log(res.data);
@@ -32,7 +32,7 @@ export default function SignUpPage() {
         .catch(res => {
             console.log("deu ruim")
             alert("Você inseriu dados inválidos ou já cadastrados. Insira novamente!")
-        })*/
+        })
     }
     return (
         <BodySignUp>
@@ -41,8 +41,8 @@ export default function SignUpPage() {
                 <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
                 <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="senha" />
                 <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirme a senha" />
-                {(password === confirmPassword) && (<button onClick={cadastrar}> Cadastrar</button> )}
-                {(password !== confirmPassword) && (<button onClick={erro}> Cadastrar</button> )}
+                {(password === confirmPassword && password.length >=8) && (<button onClick={cadastrar}> Cadastrar</button> )}
+                {(password !== confirmPassword || password.length<8) && (<button onClick={erro}> Cadastrar</button> )}
                <Link style={{ textDecoration: 'none' }} to={`/login`} >
                     <h3> Já tem uma conta? Entre agora</h3>
                </Link>

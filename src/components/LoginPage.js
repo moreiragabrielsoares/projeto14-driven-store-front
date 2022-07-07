@@ -20,7 +20,7 @@ export default function LoginPage() {
             }
             console.log(body)
             navigate('/');
-            /*const promise = axios.post("https://projeto14-driven-store-back.herokuapp.com/sign-in", body);
+            const promise = axios.post("https://projeto14-driven-store-back.herokuapp.com/sign-in", body);
             promise
             .then(res =>{
                 console.log("deu bom")
@@ -37,14 +37,14 @@ export default function LoginPage() {
                 console.log(err);
                 console.log("deu ruim")
                 alert("Você inseriu dados inválidos. Insira novamente!")
-            })*/
+            })
     }
 
     return (
         <BodyLogin>
             <h2> Driven Store</h2>
                 <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
-                <input type="text" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Senha" />
+                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Senha" />
                 <button onClick={logar}> Entrar</button> 
                <Link style={{ textDecoration: 'none' }} to={`/signup`} >
                     <h3> Primeira vez? Cadastre-se</h3>
