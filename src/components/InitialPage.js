@@ -1,12 +1,15 @@
-import { useState , useEffect } from 'react';
+import { useState , useEffect , useContext} from 'react';
 import { useNavigate } from "react-router-dom";
 import styled from 'styled-components';
 import axios from 'axios';
 
+import UserContext from '../contexts/UserContext'
 import TopBar from "./TopBar";
 
 
 function InitialPage () {
+
+    const {user, setUser} = useContext(UserContext);
 
     const navigate = useNavigate();
 
@@ -31,6 +34,49 @@ function InitialPage () {
 	}, []);
 
 
+    function addToCart(product) {
+
+        const config = {
+            headers: {
+                "Authorization": `Bearer ${user.token}`
+            }
+        }
+
+        const productCart = {
+            userId: "62c72184afe5b9e0e6ae9e6b",
+            productId: product._id,
+            productName: product.name,
+            productPrice: product.price,
+            productImg: product.img
+        };
+
+        const request = axios.post("http://localhost:5000/shoppingcart", productCart, config);
+
+        request.then(registerSuccess);         
+        
+        request.catch((erro) => alert(erro.response.data));
+
+    }
+
+    function registerSuccess (res) {
+        
+        const config = {
+            headers: {
+                "Authorization": `Bearer ${user.token}`
+            }
+        }
+
+		const promisse = axios.get("http://localhost:5000/shoppingcart", config);
+
+		promisse.then(success);
+
+        function success (res) {
+            setUser({qtyCartItems: res.data.length});
+        }
+        
+        promisse.catch((erro) => {alert(erro.response.data.message)});
+    }
+
 
     function verifyCaderno (product) {
 
@@ -42,8 +88,8 @@ function InitialPage () {
                             <img src={product.img}/>
                         </ProductImg>
                         <ProductName>{product.name}</ProductName>
-                        <ProductPrice>{`R$${product.price}`}</ProductPrice>
-                        <AddToCartButton onClick={() => logIn()}>Adicionar ao Carrinho</AddToCartButton>
+                        <ProductPrice>{`R$${product.price.toFixed(2).toString().replace(".", ",")}`}</ProductPrice>
+                        <AddToCartButton onClick={user.token === "" ? (() => logIn()) : (() => addToCart(product))}>Adicionar ao Carrinho</AddToCartButton>
 
                     </ProductContainer>
         }
@@ -60,8 +106,8 @@ function InitialPage () {
                             <img src={product.img}/>
                         </ProductImg>
                         <ProductName>{product.name}</ProductName>
-                        <ProductPrice>{`R$${product.price}`}</ProductPrice>
-                        <AddToCartButton onClick={() => logIn()}>Adicionar ao Carrinho</AddToCartButton>
+                        <ProductPrice>{`R$${product.price.toFixed(2).toString().replace(".", ",")}`}</ProductPrice>
+                        <AddToCartButton onClick={user.token === "" ? (() => logIn()) : (() => addToCart(product))}>Adicionar ao Carrinho</AddToCartButton>
 
                     </ProductContainer>
         }
@@ -77,8 +123,8 @@ function InitialPage () {
                             <img src={product.img}/>
                         </ProductImg>
                         <ProductName>{product.name}</ProductName>
-                        <ProductPrice>{`R$${product.price}`}</ProductPrice>
-                        <AddToCartButton onClick={() => logIn()}>Adicionar ao Carrinho</AddToCartButton>
+                        <ProductPrice>{`R$${product.price.toFixed(2).toString().replace(".", ",")}`}</ProductPrice>
+                        <AddToCartButton onClick={user.token === "" ? (() => logIn()) : (() => addToCart(product))}>Adicionar ao Carrinho</AddToCartButton>
 
                     </ProductContainer>
         }
