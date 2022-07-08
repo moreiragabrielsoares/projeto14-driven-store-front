@@ -20,18 +20,20 @@ export default function LoginPage() {
             }
             console.log(body)
             navigate('/');
-            const promise = axios.post("https://projeto14-driven-store-back.herokuapp.com/sign-in", body);
+            const promise = axios.post("https://projeto14-driven-store-back.herokuapp.com/login", body);
             promise
             .then(res =>{
                 console.log("deu bom")
                 console.log(res.data);
+                navigate('/');
                setUser(
                 {   
                     name: res.data.name,
                     token: res.data.token
-                },
+                }
+                
             );
-            navigate('/');
+            
             })
             .catch(err => {
                 console.log(err);

@@ -10,9 +10,20 @@ import TopBar from "./TopBar";
 
 function RenderShopping({name, price, image}) {
    function deleteChoice() {
-       console.log("Vamos deletar a função");
-       //Aqui irei deletar um documentar e renderizar novamente a página
+       console.log(image); // estou colocando image só pra tester o delete. Depois substituir por ID!!!
+       const promise = axios.delete(`http://localhost:5000/shoppingcart/${image}`)
+       promise 
+       .then(res => {
+        console.log("apagamos");
+    })
+       .catch(err => {
+         console.error('Não foi possível apagar mensagem!');
+         console.error(err);
+       });
    }
+
+
+       //Aqui irei deletar um documentar e renderizar novamente a página
     return (
         <Contents> 
             <Items>
@@ -39,7 +50,7 @@ export default function ShoppingCartPage() {
       }, {
         name: "Caderno superman",
         price: 45.00,
-        img: "https://sdinovacoesgraficas.com.br/wp-content/uploads/2020/07/dragon-ball-2021-universit%C3%A1rio-capa-4.jpg"
+        img: "https://images.tcdn.com.br/img/img_prod/997151/caderno_universitario_capa_dura_naruto_1_materia_sd_4925_1_0976068f9c099ff2ada73892b3e07c39.jpg"
       },
       {
         name: "Caderno vegeta",
