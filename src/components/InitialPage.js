@@ -43,7 +43,7 @@ function InitialPage () {
         }
 
         const productCart = {
-            userId: "62c72184afe5b9e0e6ae9e6b",
+            userId: user.id,
             productId: product._id,
             productName: product.name,
             productPrice: product.price,
