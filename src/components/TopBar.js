@@ -16,7 +16,7 @@ function TopBar () {
 
     function logOut () {
         
-        setUser({name: "", token:""})
+        setUser({name: "", token:""}) // tem que corrigir isso
 
         navigate("/");
     }

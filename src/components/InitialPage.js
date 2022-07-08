@@ -71,7 +71,8 @@ function InitialPage () {
 		promisse.then(success);
 
         function success (res) {
-            setUser({qtyCartItems: res.data.length});
+            console.log(res.data);
+            setUser({qtyCartItems: res.data.length}); // tem que corrigir isso
         }
         
         promisse.catch((erro) => {alert(erro.response.data.message)});

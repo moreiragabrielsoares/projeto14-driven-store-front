@@ -26,7 +26,7 @@ export default function LoginPage() {
                 console.log("deu bom")
                 console.log(res.data);
                 navigate('/');
-               setUser(
+               setUser( // tem que corrigir isso
                 {   
                     name: res.data.name,
                     token: res.data.token,
