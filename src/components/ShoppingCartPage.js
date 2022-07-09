@@ -8,13 +8,31 @@ import { useContext } from "react";
 import lixeira from "../assets/lixeira.png";
 import TopBar from "./TopBar";
 import back from "../assets/back.png"
-function RenderShopping({name, price, image, productId}) {
+function RenderShopping({name, price, image, productId, setShopping, user}) {
    function deleteChoice() {
        console.log(productId); 
-       const promise = axios.delete(`localhost:5000/shoppingcart/${productId}`)
+       const promise = axios.delete(`http://localhost:5000/shoppingcart/${productId}`)
        promise 
        .then(res => {
         console.log("apagamos");
+        
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${user.token}`
+                }
+            }
+            const promise = axios.get("http://localhost:5000/shoppingcart", config)
+            promise
+            .then(res =>{
+                console.log("Lista atualizada");
+                setShopping(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+                console.log("deu ruim")
+            })
+       
+
     })
        .catch(err => {
          console.error('Não foi possível apagar mensagem!');
@@ -37,43 +55,9 @@ function RenderShopping({name, price, image, productId}) {
 
 
 export default function ShoppingCartPage() {
-    //para fazer esse get só preciso do token do usuário pra ver se ele está logado
-    // quando fizer o get em shoppingcart eu vou precisar do userId. Esse userId vai ser usado na function ordersMade
     const { user, setUser } = useContext(UserContext);
     const [shopping, setShopping] = useState([]);
     const [balance, setBalance] = useState(0);
-    console.log(user.token)
-    /*const shopping = [{
-        name: "Caderno Goku",
-        price: 55.00,
-        produtoId: "62c61c0b2e61470636277514",
-        img: "https://sdinovacoesgraficas.com.br/wp-content/uploads/2020/07/dragon-ball-2021-universit%C3%A1rio-capa-4.jpg"
-      }, {
-        name: "Caderno superman",
-        produtoId:"62c61b872e61470636277512",
-        price: 45.00,
-        img: "https://images.tcdn.com.br/img/img_prod/997151/caderno_universitario_capa_dura_naruto_1_materia_sd_4925_1_0976068f9c099ff2ada73892b3e07c39.jpg"
-      },
-      {
-        name: "Caderno vegeta",
-        price: 50.00,
-        produtoId: "62c61c0b2e61470636277514",
-        img: "https://sdinovacoesgraficas.com.br/wp-content/uploads/2020/07/dragon-ball-2021-universit%C3%A1rio-capa-4.jpg"
-      }]*/
-
-
-/* 
-const config = {
-            headers: {
-                "Authorization": `Bearer ${user.token}`
-            }
-        }
-
-		const promisse = axios.get("http://localhost:5000/shoppingcart", config);
-
-		promisse.then(success);
-*/
-
 
    useEffect(() => {
         const config = {
@@ -122,7 +106,7 @@ const config = {
                     <h3> Valor</h3>
                 </Title>
                 
-                {shopping.map( (data) => <RenderShopping productId={data.productId} name={data.productName} price={data.productPrice} image={data.productImg} />)}
+                {shopping.map( (data) => <RenderShopping user={user} setShopping={setShopping} productId={data.productId} name={data.productName} price={data.productPrice} image={data.productImg} />)}
 
                 <TotalPrice>
                     <h3> Total</h3>
