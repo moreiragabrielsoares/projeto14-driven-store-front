@@ -107,7 +107,7 @@ const config = {
     return (
         <ShoppingBody>
             <TopBar />
-            <Link style={{ textDecoration: 'none' }} to={`/shoppingcart`} >
+            <Link style={{ textDecoration: 'none' }} to={`/`} >
                 <img src={back} />
             </Link>
             

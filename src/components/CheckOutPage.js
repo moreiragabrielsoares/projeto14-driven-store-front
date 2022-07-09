@@ -98,9 +98,7 @@ export default function CheckOutPage(){
                     <input type="text" value={adress} onChange={(e) => setAdress(e.target.value)} placeholder="Preencha seu ndereço" />
                     <h3> Valor total: R$ {balance}</h3>         
                 </Forms>
-                <Link style={{ textDecoration: 'none' }} to={`/checkout`} >
                     <button onClick={ordersMade}> Finalizar pedido</button>
-                </Link>
             </BodyCheckout>    
         </>
     )
