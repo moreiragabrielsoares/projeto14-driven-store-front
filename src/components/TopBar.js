@@ -57,9 +57,9 @@ function TopBar () {
                                 <ion-icon name="cart-outline"></ion-icon>
                             </Link>    
     
-                            <Link to="/shoppingcart" style={{textDecoration: 'none'}}>
-                                <div>{user.qtyCartItems}</div>
-                            </Link>
+                          {/* <Link to="/shoppingcart" style={{textDecoration: 'none'}}>
+                                <div>{user.qtyCartItems}</div> 
+                            </Link> */} 
                         </ShoppingCartContainer>
                     </RightContainer>
             

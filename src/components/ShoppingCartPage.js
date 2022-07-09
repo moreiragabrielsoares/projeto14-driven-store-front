@@ -7,11 +7,11 @@ import UserContext from "../contexts/UserContext";
 import { useContext } from "react";
 import lixeira from "../assets/lixeira.png";
 import TopBar from "./TopBar";
-
-function RenderShopping({name, price, image}) {
+import back from "../assets/back.png"
+function RenderShopping({name, price, image, productId}) {
    function deleteChoice() {
-       console.log(image); // estou colocando image só pra tester o delete. Depois substituir por ID!!!
-       const promise = axios.delete(`http://localhost:5000/shoppingcart/${image}`)
+       console.log(productId); 
+       const promise = axios.delete(`localhost:5000/shoppingcart/${productId}`)
        promise 
        .then(res => {
         console.log("apagamos");
@@ -21,7 +21,6 @@ function RenderShopping({name, price, image}) {
          console.error(err);
        });
    }
-
 
        //Aqui irei deletar um documentar e renderizar novamente a página
     return (
@@ -41,46 +40,65 @@ export default function ShoppingCartPage() {
     //para fazer esse get só preciso do token do usuário pra ver se ele está logado
     // quando fizer o get em shoppingcart eu vou precisar do userId. Esse userId vai ser usado na function ordersMade
     const { user, setUser } = useContext(UserContext);
-    //const [shopping, setShopping] = useState([]);
+    const [shopping, setShopping] = useState([]);
     const [balance, setBalance] = useState(0);
-    const shopping = [{
+    console.log(user.token)
+    /*const shopping = [{
         name: "Caderno Goku",
         price: 55.00,
+        produtoId: "62c61c0b2e61470636277514",
         img: "https://sdinovacoesgraficas.com.br/wp-content/uploads/2020/07/dragon-ball-2021-universit%C3%A1rio-capa-4.jpg"
       }, {
         name: "Caderno superman",
+        produtoId:"62c61b872e61470636277512",
         price: 45.00,
         img: "https://images.tcdn.com.br/img/img_prod/997151/caderno_universitario_capa_dura_naruto_1_materia_sd_4925_1_0976068f9c099ff2ada73892b3e07c39.jpg"
       },
       {
         name: "Caderno vegeta",
         price: 50.00,
+        produtoId: "62c61c0b2e61470636277514",
         img: "https://sdinovacoesgraficas.com.br/wp-content/uploads/2020/07/dragon-ball-2021-universit%C3%A1rio-capa-4.jpg"
-      }]
+      }]*/
 
-   /* useEffect(() => {
+
+/* 
+const config = {
+            headers: {
+                "Authorization": `Bearer ${user.token}`
+            }
+        }
+
+		const promisse = axios.get("http://localhost:5000/shoppingcart", config);
+
+		promisse.then(success);
+*/
+
+
+   useEffect(() => {
         const config = {
             headers: {
                 Authorization: `Bearer ${user.token}`
             }
         }
-        const promise = axios.get("http://projeto14-driven-store-back.herokuapp.com/shoppingcart")
+        const promise = axios.get("http://localhost:5000/shoppingcart", config)
         promise
         .then(res =>{
             console.log(res.data);
             setShopping(res.data);
-            setQuantity(res.data.length)
+            //setQuantity(res.data.length)
             console.log(shopping)
         })
         .catch(err => {
             console.log(err);
             console.log("deu ruim")
         })
-    }, []) */
+    }, []) 
     let total = 0;
     useEffect(() => {
         for(let i = 0; i < shopping.length; i++) {
-            let valor = shopping[i].price
+
+            let valor = shopping[i].productPrice
                 total += valor
         }
         setBalance(total) 
@@ -89,6 +107,10 @@ export default function ShoppingCartPage() {
     return (
         <ShoppingBody>
             <TopBar />
+            <Link style={{ textDecoration: 'none' }} to={`/shoppingcart`} >
+                <img src={back} />
+            </Link>
+            
             <Header>
                 <h2> Carrinho</h2>
                 <h4> Clique em checkout para seguir adiante com a compra</h4>
@@ -100,7 +122,7 @@ export default function ShoppingCartPage() {
                     <h3> Valor</h3>
                 </Title>
                 
-                {shopping.map( (data) => <RenderShopping name={data.name} price={data.price} image={data.img} />)}
+                {shopping.map( (data) => <RenderShopping productId={data.productId} name={data.productName} price={data.productPrice} image={data.productImg} />)}
 
                 <TotalPrice>
                     <h3> Total</h3>
@@ -138,11 +160,16 @@ const ShoppingBody = styled.div`
         letter-spacing: -0.012em;
         color: white; 
     }
+    img{
+        margin-top:40px;
+        width: 40px;
+        height: 40px;
+    }
 `
 const Header = styled.div`
         display: flex;
         justify-content: center;
-        margin-top:100px;
+        margin-top:40px;
     h2 {
         font-family: 'Righteous';
         font-style: normal;
