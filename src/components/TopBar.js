@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import UserContext from '../contexts/UserContext';
+import UserContext from '../contexts/UserContext'
 import { Link , useNavigate } from "react-router-dom";
 import styled from 'styled-components';
 
@@ -16,7 +16,7 @@ function TopBar () {
 
     function logOut () {
         
-        setUser({name: "", token:""}) // tem que corrigir isso
+        setUser({name: "", token:""})
 
         navigate("/");
     }
@@ -57,9 +57,9 @@ function TopBar () {
                                 <ion-icon name="cart-outline"></ion-icon>
                             </Link>    
     
-                            <Link to="/shoppingcart" style={{textDecoration: 'none'}}>
-                                <div>{user.qtyCartItems}</div>
-                            </Link>
+                          {/* <Link to="/shoppingcart" style={{textDecoration: 'none'}}>
+                                <div>{user.qtyCartItems}</div> 
+                            </Link> */} 
                         </ShoppingCartContainer>
                     </RightContainer>
             

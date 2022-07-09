@@ -26,7 +26,6 @@ export default function SignUpPage() {
         const promise = axios.post("https://projeto14-driven-store-back.herokuapp.com/signup", body)
         promise
         .then(res => {
-            console.log(res.data);
             navigate('/login');
         })
         .catch(res => {

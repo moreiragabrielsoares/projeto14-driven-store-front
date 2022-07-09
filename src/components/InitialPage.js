@@ -10,7 +10,7 @@ import TopBar from "./TopBar";
 function InitialPage () {
 
     const {user, setUser} = useContext(UserContext);
-
+    console.log(user)
     const navigate = useNavigate();
 
     function logIn () {
@@ -43,7 +43,7 @@ function InitialPage () {
         }
 
         const productCart = {
-            userId: user.id,
+            email: user.email,
             productId: product._id,
             productName: product.name,
             productPrice: product.price,
@@ -72,7 +72,7 @@ function InitialPage () {
 
         function success (res) {
             console.log(res.data);
-            setUser({qtyCartItems: res.data.length}); // tem que corrigir isso
+            //setUser({qtyCartItems: res.data.length}); // tem que corrigir isso
         }
         
         promisse.catch((erro) => {alert(erro.response.data.message)});
@@ -218,20 +218,16 @@ const ProductContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
     margin: 0 5px;
-
     border: 1px solid transparent;
     border-radius: 5px;
    
     :hover {
         border-color: lightgray;
     }
-
     min-width:180px;
     width: 180px;
     height: 300px;
-
     @media (max-width: 600px) {
         min-width: 180px;
     }
@@ -242,7 +238,6 @@ const ProductImg = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-
     img {
         width: 90%;
     }
@@ -273,10 +268,8 @@ const AddToCartButton = styled.div`
     justify-content: center;
     text-align: center;
     border-radius: 5px;
-
     width: 70%;
     height: 40px;
-
     :hover {
         cursor: pointer;
     }

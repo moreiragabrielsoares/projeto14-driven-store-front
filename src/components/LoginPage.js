@@ -19,18 +19,17 @@ export default function LoginPage() {
                 password: password
             }
             console.log(body)
-            navigate('/');
             const promise = axios.post("http://localhost:5000/login", body);
             promise
             .then(res =>{
                 console.log("deu bom")
                 console.log(res.data);
                 navigate('/');
-               setUser( // tem que corrigir isso
+               setUser(
                 {   
                     name: res.data.name,
                     token: res.data.token,
-                    id: res.data.userId
+                    email: res.data.email
                 }
                 
             );
