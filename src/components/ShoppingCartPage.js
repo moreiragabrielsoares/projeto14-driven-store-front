@@ -8,7 +8,8 @@ import { useContext } from "react";
 import lixeira from "../assets/lixeira.png";
 import TopBar from "./TopBar";
 import back from "../assets/back.png"
-function RenderShopping({name, price, image, productId, setShopping, user}) {
+
+function RenderShopping({name, price, image, productId, setShopping, user, setQtyCarts}) {
    function deleteChoice() {
        console.log(productId); 
        const promise = axios.delete(`http://localhost:5000/shoppingcart/${productId}`)
@@ -26,6 +27,7 @@ function RenderShopping({name, price, image, productId, setShopping, user}) {
             .then(res =>{
                 console.log("Lista atualizada");
                 setShopping(res.data);
+                setQtyCarts(res.data.length)
             })
             .catch(err => {
                 console.log(err);
@@ -55,7 +57,7 @@ function RenderShopping({name, price, image, productId, setShopping, user}) {
 
 
 export default function ShoppingCartPage() {
-    const { user, setUser } = useContext(UserContext);
+    const { user, setUser, qtyCarts, setQtyCarts } = useContext(UserContext);
     const [shopping, setShopping] = useState([]);
     const [balance, setBalance] = useState(0);
 
@@ -70,7 +72,7 @@ export default function ShoppingCartPage() {
         .then(res =>{
             console.log(res.data);
             setShopping(res.data);
-            //setQuantity(res.data.length)
+            setQtyCarts(res.data.length)
             console.log(shopping)
         })
         .catch(err => {
@@ -106,7 +108,7 @@ export default function ShoppingCartPage() {
                     <h3> Valor</h3>
                 </Title>
                 
-                {shopping.map( (data) => <RenderShopping user={user} setShopping={setShopping} productId={data.productId} name={data.productName} price={data.productPrice} image={data.productImg} />)}
+                {shopping.map( (data) => <RenderShopping setQtyCarts={setQtyCarts} user={user} setShopping={setShopping} productId={data.productId} name={data.productName} price={data.productPrice} image={data.productImg} />)}
 
                 <TotalPrice>
                     <h3> Total</h3>

@@ -14,7 +14,7 @@ import CheckOutPage from "./components/CheckOutPage";
 
 
 function App() {
-
+      const [qtyCarts, setQtyCarts] = useState(0)
       const [user, setUser] = useState({
         name: "",
         token: "",
@@ -24,7 +24,7 @@ function App() {
     
     return (
       <BrowserRouter>
-        <UserContext.Provider value={{ user, setUser }}>
+        <UserContext.Provider value={{ user, setUser, qtyCarts, setQtyCarts }}>
           <Routes>
               <Route path="/" element={<InitialPage />} />
               <Route path="/signup" element={<SignUpPage />} />

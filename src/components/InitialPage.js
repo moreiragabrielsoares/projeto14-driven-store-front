@@ -9,7 +9,7 @@ import TopBar from "./TopBar";
 
 function InitialPage () {
 
-    const {user, setUser} = useContext(UserContext);
+    const {user, setUser, qtyCarts, setQtyCarts} = useContext(UserContext);
     console.log(user)
     const navigate = useNavigate();
 
@@ -72,7 +72,7 @@ function InitialPage () {
 
         function success (res) {
             console.log(res.data);
-            //setUser({qtyCartItems: res.data.length}); // tem que corrigir isso
+            setQtyCarts(res.data.length)
         }
         
         promisse.catch((erro) => {alert(erro.response.data.message)});

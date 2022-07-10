@@ -9,7 +9,7 @@ import styled from 'styled-components';
 
 function TopBar () {
 
-    const {user, setUser} = useContext(UserContext);
+    const {user, setUser, qtyCarts, setQtyCarts} = useContext(UserContext);
     
     const navigate = useNavigate();
 
@@ -57,9 +57,9 @@ function TopBar () {
                                 <ion-icon name="cart-outline"></ion-icon>
                             </Link>    
     
-                          {/* <Link to="/shoppingcart" style={{textDecoration: 'none'}}>
-                                <div>{user.qtyCartItems}</div> 
-                            </Link> */} 
+                           <Link to="/shoppingcart" style={{textDecoration: 'none'}}>
+                                <div>{qtyCarts}</div> 
+                            </Link> 
                         </ShoppingCartContainer>
                     </RightContainer>
             
