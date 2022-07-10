@@ -12,7 +12,7 @@ import back from "../assets/back.png"
 function RenderShopping({name, price, image, productId, setShopping, user, setQtyCarts}) {
    function deleteChoice() {
        console.log(productId); 
-       const promise = axios.delete(`https://projeto14-driven-store-back.herokuapp.com/${productId}`)
+       const promise = axios.delete(`https://projeto14-driven-store-back.herokuapp.com/shoppingcart/${productId}`)
        promise 
        .then(res => {
         console.log("apagamos");
