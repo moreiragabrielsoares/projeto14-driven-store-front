@@ -21,7 +21,7 @@ function InitialPage () {
 
     useEffect(() => {
 
-		const promisse = axios.get("http://localhost:5000/products");
+		const promisse = axios.get("https://projeto14-driven-store-back.herokuapp.com/products");
 
 		promisse.then(success);
 
@@ -50,7 +50,7 @@ function InitialPage () {
             productImg: product.img
         };
 
-        const request = axios.post("http://localhost:5000/shoppingcart", productCart, config);
+        const request = axios.post("https://projeto14-driven-store-back.herokuapp.com/shoppingcart", productCart, config);
 
         request.then(registerSuccess);         
         
@@ -66,7 +66,7 @@ function InitialPage () {
             }
         }
 
-		const promisse = axios.get("http://localhost:5000/shoppingcart", config);
+		const promisse = axios.get("https://projeto14-driven-store-back.herokuapp.com/shoppingcart", config);
 
 		promisse.then(success);
 

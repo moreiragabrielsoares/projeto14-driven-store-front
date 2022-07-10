@@ -19,7 +19,7 @@ export default function LoginPage() {
                 password: password
             }
             console.log(body)
-            const promise = axios.post("http://localhost:5000/login", body);
+            const promise = axios.post("https://projeto14-driven-store-back.herokuapp.com/login", body);
             promise
             .then(res =>{
                 console.log("deu bom")

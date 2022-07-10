@@ -12,7 +12,7 @@ import back from "../assets/back.png"
 function RenderShopping({name, price, image, productId, setShopping, user, setQtyCarts}) {
    function deleteChoice() {
        console.log(productId); 
-       const promise = axios.delete(`http://localhost:5000/shoppingcart/${productId}`)
+       const promise = axios.delete(`https://projeto14-driven-store-back.herokuapp.com/${productId}`)
        promise 
        .then(res => {
         console.log("apagamos");
@@ -22,7 +22,7 @@ function RenderShopping({name, price, image, productId, setShopping, user, setQt
                     Authorization: `Bearer ${user.token}`
                 }
             }
-            const promise = axios.get("http://localhost:5000/shoppingcart", config)
+            const promise = axios.get("https://projeto14-driven-store-back.herokuapp.com/shoppingcart", config)
             promise
             .then(res =>{
                 console.log("Lista atualizada");
@@ -67,7 +67,7 @@ export default function ShoppingCartPage() {
                 Authorization: `Bearer ${user.token}`
             }
         }
-        const promise = axios.get("http://localhost:5000/shoppingcart", config)
+        const promise = axios.get("https://projeto14-driven-store-back.herokuapp.com/shoppingcart", config)
         promise
         .then(res =>{
             console.log(res.data);

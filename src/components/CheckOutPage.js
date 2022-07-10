@@ -30,7 +30,7 @@ export default function CheckOutPage(){
             email: user.email
         }
         console.log(body)
-        const promise = axios.post("http://localhost:5000/ordersmade", body);
+        const promise = axios.post("https://projeto14-driven-store-back.herokuapp.com/ordersmade", body);
         promise
         .then(res =>{
             console.log("deu bom")
@@ -52,7 +52,7 @@ export default function CheckOutPage(){
                 Authorization: `Bearer ${user.token}`
             }
         }
-        const promise = axios.get("http://localhost:5000/shoppingcart", config)
+        const promise = axios.get("https://projeto14-driven-store-back.herokuapp.com/shoppingcart", config)
         promise
         .then(res =>{
             setShopping(res.data);
