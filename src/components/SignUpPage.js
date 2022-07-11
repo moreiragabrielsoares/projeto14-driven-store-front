@@ -30,7 +30,7 @@ export default function SignUpPage() {
         })
         .catch(res => {
             console.log("deu ruim")
-            alert("Você inseriu dados inválidos ou já cadastrados. Insira novamente!")
+            alert("Você inseriu dados inválidos ou já cadastrados. Insira uma senha de 8 digitos incluindo: letra maiúscula, minúscula, numero e caractere especial!")
         })
     }
     return (
@@ -108,4 +108,5 @@ h3{
     align-items: center;
     justify-content: center;
 }
+
 `

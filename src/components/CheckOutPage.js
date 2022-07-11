@@ -16,11 +16,8 @@ export default function CheckOutPage(){
     const [qtyCartItems, setQtyCartItems] = useState(0);
     const [shopping, setShopping] = useState([])
     const navigate = useNavigate(); 
-    /*
-    Quando eu fazer esse get eu preciso fazer um for por no res.data e armazenar o ID de todos os
-    produtos na array productsIds. Essa array vai ser enviada pelo orders Made*/
-    
-    function ordersMade() { // função que envia o pedido para a API
+
+    function ordersMade() { 
         const body = {
             qtyCartItems: qtyCartItems,
             balance: balance,
@@ -95,7 +92,7 @@ export default function CheckOutPage(){
                     <h3> Método de Pagamento</h3>
                     <input type="text" value={payment} onChange={(e) => setPayment(e.target.value)} placeholder="forma de pagamento" />
                     <h3> Endereço de entrega do produto</h3>
-                    <input type="text" value={adress} onChange={(e) => setAdress(e.target.value)} placeholder="Preencha seu ndereço" />
+                    <input type="text" value={adress} onChange={(e) => setAdress(e.target.value)} placeholder="Preencha seu endereço" />
                     <h3> Valor total: R$ {balance}</h3>         
                 </Forms>
                     <button onClick={ordersMade}> Finalizar pedido</button>
