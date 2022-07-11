@@ -10,7 +10,6 @@ import TopBar from "./TopBar";
 function InitialPage () {
 
     const {user, setUser, qtyCarts, setQtyCarts} = useContext(UserContext);
-    console.log(user)
     const navigate = useNavigate();
 
     function logIn () {
@@ -71,7 +70,6 @@ function InitialPage () {
 		promisse.then(success);
 
         function success (res) {
-            console.log(res.data);
             setQtyCarts(res.data.length)
         }
         

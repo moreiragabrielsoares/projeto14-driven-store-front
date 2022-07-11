@@ -18,12 +18,9 @@ export default function LoginPage() {
                 email: email,
                 password: password
             }
-            console.log(body)
             const promise = axios.post("https://projeto14-driven-store-back.herokuapp.com/login", body);
             promise
             .then(res =>{
-                console.log("deu bom")
-                console.log(res.data);
                 navigate('/');
                setUser(
                 {   
@@ -37,7 +34,6 @@ export default function LoginPage() {
             })
             .catch(err => {
                 console.log(err);
-                console.log("deu ruim")
                 alert("Você inseriu dados inválidos. Insira novamente!")
             })
     }

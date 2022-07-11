@@ -4,9 +4,6 @@ import { Link , useNavigate } from "react-router-dom";
 import styled from 'styled-components';
 
 
-
-
-
 function TopBar () {
 
     const {user, setUser, qtyCarts, setQtyCarts} = useContext(UserContext);

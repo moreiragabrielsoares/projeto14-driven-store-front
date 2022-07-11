@@ -11,12 +11,10 @@ import back from "../assets/back.png"
 
 function RenderShopping({name, price, image, productId, setShopping, user, setQtyCarts}) {
    function deleteChoice() {
-       console.log(productId); 
+       
        const promise = axios.delete(`https://projeto14-driven-store-back.herokuapp.com/shoppingcart/${productId}`)
        promise 
        .then(res => {
-        console.log("apagamos");
-        
             const config = {
                 headers: {
                     Authorization: `Bearer ${user.token}`
@@ -25,13 +23,11 @@ function RenderShopping({name, price, image, productId, setShopping, user, setQt
             const promise = axios.get("https://projeto14-driven-store-back.herokuapp.com/shoppingcart", config)
             promise
             .then(res =>{
-                console.log("Lista atualizada");
                 setShopping(res.data);
                 setQtyCarts(res.data.length)
             })
             .catch(err => {
                 console.log(err);
-                console.log("deu ruim")
             })
        
 
@@ -70,14 +66,11 @@ export default function ShoppingCartPage() {
         const promise = axios.get("https://projeto14-driven-store-back.herokuapp.com/shoppingcart", config)
         promise
         .then(res =>{
-            console.log(res.data);
             setShopping(res.data);
             setQtyCarts(res.data.length)
-            console.log(shopping)
         })
         .catch(err => {
             console.log(err);
-            console.log("deu ruim")
         })
     }, []) 
     let total = 0;

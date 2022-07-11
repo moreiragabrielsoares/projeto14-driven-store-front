@@ -21,15 +21,12 @@ export default function SignUpPage() {
             password,
             confirmPassword
         }
-        console.log(body)
-        console.log("cadastramos")
         const promise = axios.post("https://projeto14-driven-store-back.herokuapp.com/signup", body)
         promise
         .then(res => {
             navigate('/login');
         })
         .catch(res => {
-            console.log("deu ruim")
             alert("Você inseriu dados inválidos ou já cadastrados. Insira uma senha de 8 digitos incluindo: letra maiúscula, minúscula, numero e caractere especial!")
         })
     }

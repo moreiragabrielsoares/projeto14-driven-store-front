@@ -26,18 +26,14 @@ export default function CheckOutPage(){
             productIds: productIds,
             email: user.email
         }
-        console.log(body)
+        
         const promise = axios.post("https://projeto14-driven-store-back.herokuapp.com/ordersmade", body);
         promise
         .then(res =>{
-            console.log("deu bom")
-            console.log(res.data);
             alert("Seu pedido foi concluído com sucesso. Obrigado pela preferência!")
             navigate('/');
         })
         .catch(err => {
-            console.log(err);
-            console.log("deu ruim")
             alert("Não foi possível concluir seu pedido!")
         }) 
 
@@ -57,7 +53,7 @@ export default function CheckOutPage(){
         })
         .catch(err => {
             console.log(err);
-            console.log("deu ruim")
+            
         })
     }, [])
 
@@ -78,7 +74,7 @@ export default function CheckOutPage(){
         }
         
     })
-    console.log(balance)
+    
 
     return (
         <>
